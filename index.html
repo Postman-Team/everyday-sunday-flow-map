@@ -1,0 +1,961 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="robots" content="noindex, nofollow">
+<title>Everyday Sunday Flow Map</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap">
+<style>html,body{margin:0}</style><style>
+/* Layout: a printed-feeling flow atlas. Phase overview up top, then one horizontal email lane per flow, grouped by rollout phase, then the go-live timeline. */
+:root{
+  --bg:#FAF6EF; --surface:#FFFFFF; --sand:#F0E7DA; --ink:#1E2B33; --muted:#5F6A74; --line:#DCCFBE;
+  --accent:#D9653B; --accent-ink:#A8451F; --accent-soft:#F7E2D7;
+  --acq:#D9653B; --aba:#1E2B33; --post:#6F8F7A; --ret:#B9853A; --alert:#8A5A7A; --mom:#C2577A; --list:#5F6A74;
+  --display:'Barlow', 'Helvetica Neue', Arial, sans-serif; --body:'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  --logo-filter:none;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#141C21; --surface:#1C262D; --sand:#22303A; --ink:#F2ECE3; --muted:#A9B2B9; --line:#34434E;
+  --accent:#F08A5D; --accent-ink:#F4A07A; --accent-soft:#3A2A24;
+  --acq:#F08A5D; --aba:#9DB4C4; --post:#8FB39B; --ret:#D9A85C; --alert:#C08DB1; --mom:#E58BA8; --list:#A9B2B9;
+  --logo-filter:brightness(0) invert(1); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141C21; --surface:#1C262D; --sand:#22303A; --ink:#F2ECE3; --muted:#A9B2B9; --line:#34434E;
+  --accent:#F08A5D; --accent-ink:#F4A07A; --accent-soft:#3A2A24;
+  --acq:#F08A5D; --aba:#9DB4C4; --post:#8FB39B; --ret:#D9A85C; --alert:#C08DB1; --mom:#E58BA8; --list:#A9B2B9;
+  --logo-filter:brightness(0) invert(1); color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5;padding-inline:20px}
+.wrap{max-width:1240px;margin:0 auto;padding-block:32px 72px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0}
+p{margin:0}
+a{color:inherit}
+.s-acq{--stage:var(--acq)} .s-aba{--stage:var(--aba)} .s-post{--stage:var(--post)} .s-ret{--stage:var(--ret)}
+.s-alert{--stage:var(--alert)} .s-mom{--stage:var(--mom)} .s-list{--stage:var(--list)}
+
+/* masthead */
+.mast{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding-bottom:20px;border-bottom:1px solid var(--line)}
+.logos{display:flex;align-items:center;gap:18px}
+.logos img{filter:var(--logo-filter);display:block}
+.logos .rule{width:1px;height:30px;background:var(--line)}
+.mast .doc{font-family:var(--display);font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.hero{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:40px;padding-block:40px 32px;align-items:end}
+.eyebrow{font-family:var(--display);font-weight:700;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-ink)}
+.hero h1{font-size:clamp(36px,5.2vw,64px);font-weight:600;line-height:1.02;margin-top:12px;letter-spacing:-.01em}
+.hero .lede{margin-top:16px;font-size:17px;color:var(--muted);max-width:62ch}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.stat b{display:block;font-family:var(--display);font-size:34px;font-weight:600;line-height:1;color:var(--accent-ink);font-variant-numeric:tabular-nums}
+.stat span{display:block;margin-top:6px;font-size:13px;color:var(--muted)}
+.season{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+.season div{padding:12px 16px;font-size:13px}
+.season div b{display:block;font-family:var(--display);font-size:16px}
+.season .w{background:var(--ink);color:var(--bg)}
+.season .s{background:var(--accent);color:#1E2B33}
+
+/* how to read */
+.legend{display:flex;flex-wrap:wrap;gap:10px 24px;align-items:center;padding:14px 18px;background:var(--sand);border-radius:12px;font-size:13px;color:var(--muted)}
+.legend b{color:var(--ink);font-family:var(--display);font-size:14px;margin-right:4px}
+.legend .k{display:inline-flex;align-items:center;gap:8px}
+.swatch{display:inline-block;width:28px;height:18px;border-radius:5px;border:1px solid var(--line);background:var(--surface)}
+.when-k{font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--surface);color:var(--ink)}
+.swatch.sn{border-radius:999px;border-style:dashed}
+
+/* overview */
+.overview{margin-top:40px}
+.sec-title{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:16px}
+.sec-title h2{font-size:28px;font-weight:600}
+.sec-title p{color:var(--muted);font-size:14px}
+.p1{--ph:var(--acq)} .p2{--ph:var(--aba)} .p3{--ph:var(--ret)} .p4{--ph:var(--post)} .p5{--ph:var(--alert)}
+.ov-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.ov-col{background:var(--surface);border:1px solid var(--line);border-top:5px solid var(--ph);border-radius:4px 4px 14px 14px;padding:16px;min-width:0;display:flex;flex-direction:column;gap:6px}
+.ph-k{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ph)}
+.ov-col h3{font-size:20px;font-weight:600}
+.ph-when{font-family:var(--display);font-weight:600;font-size:14px;color:var(--muted)}
+.ov-col p{font-size:13px;color:var(--muted)}
+.ov-col ul{list-style:none;padding:0;margin:6px 0 0;display:grid;gap:7px}
+.ov-col a{display:grid;grid-template-columns:62px 1fr;gap:8px;align-items:baseline;text-decoration:none;font-size:13.5px;line-height:1.3}
+.ov-col a:hover .t,.ov-col a:focus-visible .t{text-decoration:underline}
+.ov-d{font-size:12px;font-weight:700;color:var(--ph);font-variant-numeric:tabular-nums}
+.ph-count{margin-top:auto;padding-top:8px;font-size:12px;font-weight:700;color:var(--muted)}
+.ladder{margin-top:14px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:14px 16px;border:1px dashed var(--line);border-radius:12px}
+.ladder .lt{font-family:var(--display);font-weight:700;font-size:14px;margin-right:6px}
+.ladder ol{list-style:none;display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding:0;margin:0}
+.ladder li{font-size:12.5px;padding:5px 10px;border-radius:999px}
+.ladder li.ord{background:var(--ink);color:var(--bg);font-weight:500}
+.ladder li.fl{border:1px solid var(--ret);color:var(--ink)}
+.ladder li+li::before{content:"→";margin-right:6px;color:var(--muted)}
+.ladder li.fl::before,.ladder li.ord::before{display:inline}
+
+/* sticky nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);margin-top:40px;padding-block:10px;border-bottom:1px solid var(--line);display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;align-items:center}
+.ph-btn{flex:none;font:600 14px var(--display);color:var(--ink);background:var(--surface);padding:7px 14px;border-radius:999px;border:1px solid var(--line);cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+.ph-btn.p1::before,.ph-btn.p2::before,.ph-btn.p3::before,.ph-btn.p4::before,.ph-btn.p5::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--ph)}
+.ph-btn[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.ph-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.nav .to-eta{margin-left:auto;flex:none;font:600 14px var(--display);text-decoration:none;padding:7px 12px;color:var(--accent-ink)}
+/* stages + flows */
+.phase{padding-top:40px;scroll-margin-top:64px}
+.phase-head{display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center;padding:20px 22px;border-radius:16px;background:var(--surface);border:1px solid var(--line);border-left:8px solid var(--ph)}
+.ph-num{font-family:var(--display);font-size:64px;font-weight:600;line-height:.9;color:var(--ph)}
+.phase-head h2{font-size:30px;font-weight:600;margin-top:2px}
+.phase-head p{color:var(--muted);margin-top:4px;max-width:70ch}
+.phase-head p b{color:var(--ink)}
+.phase-head .ph-count{margin:0;padding:0;white-space:nowrap}
+.stage-tag{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 9px;border-radius:999px;border:1px solid var(--stage);color:var(--stage)}
+.flow{padding-block:28px;border-bottom:1px solid var(--line);scroll-margin-top:60px}
+.flow-head{display:flex;gap:16px;align-items:center}
+.flow-n{font-family:var(--display);font-size:44px;font-weight:600;line-height:1;color:var(--stage);font-variant-numeric:tabular-nums}
+.flow-titles{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center}
+.flow-titles h3{font-size:26px;font-weight:600}
+.badge{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 9px;border-radius:999px}
+.badge.new{background:var(--accent-soft);color:var(--accent-ink)}
+.badge.rebuilt{background:var(--sand);color:var(--muted)}
+.strategy{margin-top:12px;max-width:78ch;font-size:15.5px}
+.meta{display:grid;grid-template-columns:3fr 1fr 1fr;gap:10px;margin:16px 0 0}
+.meta div{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px;min-width:0}
+.meta dt{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.meta dd{margin:3px 0 0;font-size:14px}
+.note{margin-top:12px;font-size:14px;color:var(--muted)}
+
+/* lanes */
+.track{margin-top:18px}
+.track-head{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:baseline;margin-bottom:8px}
+.track-tag{font-family:var(--display);font-weight:700;font-size:13px;color:var(--bg);background:var(--stage);padding:2px 9px;border-radius:6px}
+.track-title{font-family:var(--display);font-weight:600;font-size:17px}
+.track-cond{font-size:13px;color:var(--muted)}
+.gate{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;padding:9px 14px;border-radius:12px;font-size:13.5px;position:relative}
+.gate.in{border:1.5px dashed var(--stage);background:var(--bg);margin-bottom:22px}
+.gate.out{background:var(--sand);margin-top:22px}
+.gate.in::after,.gate.out::before{content:"";position:absolute;left:34px;height:22px;border-left:2px solid var(--stage)}
+.gate.in::after{top:100%}
+.gate.out::before{bottom:100%}
+.node-k{font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--stage);flex:none}
+.gate.out .node-k{color:var(--muted)}
+.lane{display:grid;grid-template-columns:repeat(calc(var(--n) * 2 - 1),auto);grid-auto-flow:column;gap:0;align-items:stretch}
+.lane{grid-template-columns:none;display:flex}
+.lane .email{flex:1 1 0;min-width:0}
+.arrow{flex:0 0 30px;position:relative}
+.arrow::before{content:"";position:absolute;left:3px;right:7px;top:50%;border-top:2px solid var(--stage)}
+.arrow::after{content:"";position:absolute;right:1px;top:calc(50% - 5px);border-left:7px solid var(--stage);border-top:5px solid transparent;border-bottom:5px solid transparent}
+.email{display:flex;flex-direction:column;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px;box-shadow:0 1px 0 var(--line)}
+.email header{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.email-n{font-family:var(--display);font-weight:700;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--stage)}
+.when{font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--sand);color:var(--ink);text-align:right}
+.focus{font-family:var(--display);font-weight:600;font-size:17px;line-height:1.2}
+.why{font-size:13px;color:var(--muted)}
+.brief{font-size:13px;line-height:1.45;padding-top:8px;border-top:1px solid var(--line)}
+.lbl{display:block;font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+.email footer{margin-top:auto;display:flex;flex-direction:column;gap:6px;padding-top:4px}
+.offer{align-self:flex-start;font-size:12px;font-weight:700;background:var(--accent-soft);color:var(--accent-ink);padding:3px 8px;border-radius:6px}
+.cta{font-size:12.5px;font-weight:700;color:var(--ink)}
+.strategy .lbl{color:var(--stage)}
+
+.eta{margin-top:56px;scroll-margin-top:64px}
+.eta-chart{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:8px}
+.eta-svg{display:block;min-width:860px;width:100%;height:auto;font-family:var(--body)}
+.t-m{font-size:13px;font-weight:700;fill:var(--muted)} .t-b{font-size:12px;font-weight:700;fill:var(--ink)}
+.t-q{font-size:11.5px;fill:var(--muted)} .t-y{font-size:12px;font-weight:700;fill:var(--accent-ink)} .t-f{font-size:13px;fill:var(--ink)} .t-d{font-size:12px;font-weight:700;fill:var(--ink)}
+.t-ph{font-family:var(--display);font-size:15px;font-weight:700;fill:var(--ph)}
+.table-wrap{overflow-x:auto;margin-top:16px;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+.eta-table{width:100%;border-collapse:collapse;font-size:14px;min-width:640px}
+.eta-table th{text-align:left;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:12px 14px;border-bottom:1px solid var(--line);background:var(--sand)}
+.eta-table td{padding:10px 14px;border-bottom:1px solid var(--line)}
+.eta-table tr:last-child td{border-bottom:0}
+.eta-table .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.eta-table td:first-child{white-space:nowrap;font-weight:700;color:var(--ph)}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--ph);margin-right:8px}
+.eta-table a{text-decoration:none;font-weight:500}.eta-table a:hover,.eta-table a:focus-visible{text-decoration:underline}
+.fixes{margin-top:18px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:18px;padding:18px 20px;border:1.5px dashed var(--ph);border-radius:14px}
+.fixes p{font-size:13.5px;color:var(--muted);margin-top:6px}
+.fixes ul{margin:0;padding-left:18px;display:grid;gap:4px;font-size:14px}
+.sub{font-size:20px;font-weight:600;margin:28px 0 12px}
+.mgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
+.mcard{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.m-n{font-family:var(--display);font-weight:700;font-size:15px}
+.m-cap{font-size:12px;color:var(--muted)} .m-cap b{color:var(--accent-ink)}
+.mcard ul{list-style:none;margin:0;padding:0;display:grid;gap:3px;font-size:13px}
+.mcard li{display:flex;justify-content:space-between;gap:8px}
+.mcard li b{font-variant-numeric:tabular-nums}
+.rules{margin-top:48px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.rules div{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px}
+.rules h3{font-size:17px;font-weight:600}
+.rules p{font-size:13.5px;color:var(--muted);margin-top:6px}
+.foot{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:12.5px;color:var(--muted)}
+
+@media (max-width:1100px){.ov-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:860px){.fixes{grid-template-columns:1fr}.hero{grid-template-columns:1fr}.meta{grid-template-columns:1fr 1fr}.rules{grid-template-columns:1fr}.ov-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:980px){.lane{flex-direction:column}.lane .email{flex:none}.arrow{flex:0 0 26px}.arrow::before{left:34px;right:auto;top:3px;bottom:7px;border-top:0;border-left:2px solid var(--stage)}.arrow::after{left:29px;right:auto;top:auto;bottom:1px;border-top:7px solid var(--stage);border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:0}}
+@media (max-width:640px){
+  body{padding-inline:16px}
+  .meta{grid-template-columns:1fr 1fr}.meta div:first-child{grid-column:1/-1}
+  .season{grid-template-columns:1fr}
+  .flow-n{font-size:34px}
+  .ov-grid{grid-template-columns:1fr}
+  .phase-head{grid-template-columns:auto 1fr}.phase-head .ph-count{grid-column:1/-1}.ph-num{font-size:48px}
+}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+</style>
+</head><body>
+
+
+<div class="wrap">
+  <header class="mast">
+    <div class="logos">
+      <img src="data:image/png;base64,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" alt="Everyday Sunday" width="120" height="44">
+      <span class="rule" aria-hidden="true"></span>
+      <img src="data:image/png;base64,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" alt="Postman Agency" width="158" height="24">
+    </div>
+    <span class="doc">Flow map · October 2026</span>
+  </header>
+
+  <section class="hero">
+    <div>
+      <p class="eyebrow">Everyday Sunday × Postman</p>
+      <h1>Every flow, every email, and the job each one does</h1>
+      <p class="lede">The full map of the email flows we're building and rebuilding for Everyday Sunday. The monthly scope is 12 emails: 6 campaigns and 6 flow emails. The flows are built in 5 phases, paced to those 6 flow emails a month. Each flow has one goal. Each email has one focus and a short brief of what goes inside. All flows run in English and French.</p>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>18</b><span>flows</span></div>
+      <div class="stat"><b>80</b><span>emails to build</span></div>
+      <div class="stat"><b>6</b><span>flow emails a month</span></div>
+      <div class="season"><div class="w"><b>October to March</b>Product blocks show loungewear</div><div class="s"><b>April to September</b>Product blocks show swim</div></div>
+    </div>
+  </section>
+
+  <div class="legend" role="note">
+    <b>How to read a flow</b>
+    <span class="k"><span class="swatch sn"></span>Who enters the flow</span>
+    <span class="k"><span class="when-k">Day 2</span> When the email sends</span>
+    <span class="k"><span class="swatch"></span>Email: its focus, why it matters, what's inside, offer and button</span>
+    <span class="k"><span class="swatch" style="background:var(--sand)"></span>When someone leaves the flow</span>
+  </div>
+
+  <section class="overview" aria-labelledby="ov-title">
+    <div class="sec-title"><h2 id="ov-title">5 phases, October 2026 to November 2027</h2><p>Select a flow to jump to its map</p></div>
+    <div class="ov-grid"><div class="ov-col p1"><span class="ph-k">Phase 1</span><h3>Recover lost revenue before BFCM</h3><p class="ph-when">October to November 2026</p><ul><li><a href="#flow-4" data-goto="1"><span class="ov-d">Oct 30</span><span class="t">Cart Abandonment Flow</span></a></li><li><a href="#flow-5" data-goto="1"><span class="ov-d">Oct 30</span><span class="t">Checkout Abandonment Flow</span></a></li><li><a href="#flow-3" data-goto="1"><span class="ov-d">Nov 19</span><span class="t">Browse Abandonment Flow</span></a></li><li><a href="#flow-14" data-goto="1"><span class="ov-d">Nov 19</span><span class="t">Winback Flow</span></a></li></ul><p class="ph-count">4 flows · 12 emails to build</p></div><div class="ov-col p2"><span class="ph-k">Phase 2</span><h3>Win the winter peak</h3><p class="ph-when">December 2026 to January 2027</p><ul><li><a href="#flow-1" data-goto="2"><span class="ov-d">Dec 18</span><span class="t">Welcome Flow</span></a></li><li><a href="#flow-6" data-goto="2"><span class="ov-d">Jan 29, 2027</span><span class="t">Site Abandonment Flow</span></a></li><li><a href="#flow-19" data-goto="2"><span class="ov-d">Jan 29, 2027</span><span class="t">Sunset Flow</span></a></li></ul><p class="ph-count">3 flows · 12 emails to build</p></div><div class="ov-col p3"><span class="ph-k">Phase 3</span><h3>Build the post-purchase journey</h3><p class="ph-when">February to April 2027</p><ul><li><a href="#flow-7" data-goto="3"><span class="ov-d">Feb 26, 2027</span><span class="t">Post-Purchase Flow (online)</span></a></li><li><a href="#flow-9" data-goto="3"><span class="ov-d">Mar 26, 2027</span><span class="t">Delivery Fit-Check Flow</span></a></li><li><a href="#flow-11" data-goto="3"><span class="ov-d">Mar 26, 2027</span><span class="t">Repurchase Flow</span></a></li><li><a href="#flow-15" data-goto="3"><span class="ov-d">Apr 30, 2027</span><span class="t">Back in Stock Flow</span></a></li></ul><p class="ph-count">4 flows · 16 emails to build</p></div><div class="ov-col p4"><span class="ph-k">Phase 4</span><h3>Swim season and loyalty</h3><p class="ph-when">May to August 2027</p><ul><li><a href="#flow-8" data-goto="4"><span class="ov-d">May 28, 2027</span><span class="t">Post-Purchase Flow (store)</span></a></li><li><a href="#flow-10" data-goto="4"><span class="ov-d">May 28, 2027</span><span class="t">Cross-Sell Flow</span></a></li><li><a href="#flow-2" data-goto="4"><span class="ov-d">Jun 25, 2027</span><span class="t">In-Store Welcome Flow</span></a></li><li><a href="#flow-12" data-goto="4"><span class="ov-d">Jul 30, 2027</span><span class="t">OHW Flow</span></a></li><li><a href="#flow-13" data-goto="4"><span class="ov-d">Aug 27, 2027</span><span class="t">VIP Flow</span></a></li></ul><p class="ph-count">5 flows · 32 emails to build</p></div><div class="ov-col p5"><span class="ph-k">Phase 5</span><h3>Ready for winter and BFCM 2027</h3><p class="ph-when">September to November 2027</p><ul><li><a href="#flow-16" data-goto="5"><span class="ov-d">Sep 24, 2027</span><span class="t">Price Drop Flow</span></a></li><li><a href="#flow-18" data-goto="5"><span class="ov-d">Nov 18, 2027</span><span class="t">Birthday Flow</span></a></li></ul><p class="ph-count">2 flows · 8 emails to build</p></div></div>
+  </section>
+
+  <nav class="nav" aria-label="Show a phase"><button type="button" class="ph-btn" data-phase="all" aria-pressed="true">All phases</button><button type="button" class="ph-btn p1" data-phase="1" aria-pressed="false">Phase 1</button><button type="button" class="ph-btn p2" data-phase="2" aria-pressed="false">Phase 2</button><button type="button" class="ph-btn p3" data-phase="3" aria-pressed="false">Phase 3</button><button type="button" class="ph-btn p4" data-phase="4" aria-pressed="false">Phase 4</button><button type="button" class="ph-btn p5" data-phase="5" aria-pressed="false">Phase 5</button><a class="to-eta" href="#etas">Go-live dates ↓</a></nav>
+
+  <div id="phases"><section class="phase p1" id="phase-1" data-phase="1"><div class="phase-head"><span class="ph-num">1</span><div><span class="ph-k">Phase 1 · October to November 2026</span><h2>Recover lost revenue before BFCM</h2><p>Rebuild the abandonment flows that are only half live today and bring lapsed seasonal buyers back for Black Friday. <b>All live by Nov 19.</b></p></div><span class="ph-count">4 flows · 12 emails to build</span></div><section class="flow s-aba" id="flow-4">
+<div class="flow-head"><div class="flow-titles"><h3>Cart Abandonment Flow</h3>
+<span class="stage-tag">Abandonment</span><span class="badge rebuilt">Existing, rebuilt</span></div></div>
+<p class="strategy"><span class="lbl">Flow goal</span>Recover the cart before the shopper buys elsewhere or forgets. The sequence escalates from a reminder to answering objections to proof, and only a first-time buyer sees an incentive at the end.</p>
+<dl class="meta">
+<div><dt>Measured on</dt><dd>Cart recovery rate, revenue per recipient</dd></div>
+<div><dt>Emails to build</dt><dd>3 · Email 1 is live and stays; emails 2 to 4 are new</dd></div>
+<div><dt>Live by</dt><dd>Oct 30, 2026</dd></div></dl>
+<div class="track"><div class="gate in"><span class="node-k">Enters</span><span>Shoppers who added to cart but didn&#x27;t start checkout</span></div><div class="lane" style="--n:4"><article class="email">
+<header><span class="email-n">Email 1</span><span class="when">1h</span></header>
+<p class="focus">Remind while intent is at its highest.</p>
+
+<p class="brief"><span class="lbl">Inside</span>Dynamic cart (items, sizes, price), free shipping threshold, help contact</p>
+<footer><span class="cta">Button: Return to my cart</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 2</span><span class="when">Day 1</span></header>
+<p class="focus">Answer objections.</p>
+<p class="why">Fit and quality are the usual reasons people hesitate.</p>
+<p class="brief"><span class="lbl">Inside</span>Fit and support details for the cart items, fabric quality, size guide, delivery times</p>
+<footer><span class="cta">Button: Complete my order</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 3</span><span class="when">Day 2</span></header>
+<p class="focus">Prove it.</p>
+<p class="why">Reviews and real customers settle the doubt.</p>
+<p class="brief"><span class="lbl">Inside</span>Reviews of the cart products, customer photos, &quot;bestseller&quot; badges</p>
+<footer><span class="cta">Button: Complete my order</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 4</span><span class="when">Day 3</span></header>
+<p class="focus">Close.</p>
+<p class="why">The final push.</p>
+<p class="brief"><span class="lbl">Inside</span>First-time buyers: a limited 48h code. Repeat buyers: &quot;your size is selling fast&quot; urgency, no code.</p>
+<footer><span class="offer">First-time buyers only: 10%, 48h</span><span class="cta">Button: Claim and check out</span></footer>
+</article></div><div class="gate out"><span class="node-k">Leaves when</span><span>Checkout started (they move to Checkout) or purchase</span></div></div>
+
+</section><section class="flow s-aba" id="flow-5">
+<div class="flow-head"><div class="flow-titles"><h3>Checkout Abandonment Flow</h3>
+<span class="stage-tag">Abandonment</span><span class="badge rebuilt">Existing, rebuilt</span></div></div>
+<p class="strategy"><span class="lbl">Flow goal</span>Recover the highest-intent shoppers, who were one step from paying. The emails remove last-minute friction (delivery, payment, sizing) and finish with a deadline.</p>
+<dl class="meta">
+<div><dt>Measured on</dt><dd>Checkout recovery rate, revenue per recipient</dd></div>
+<div><dt>Emails to build</dt><dd>3 · Email 1 is live and stays; emails 2 to 4 are new</dd></div>
+<div><dt>Live by</dt><dd>Oct 30, 2026</dd></div></dl>
+<div class="track"><div class="gate in"><span class="node-k">Enters</span><span>Shoppers who started checkout and didn&#x27;t order</span></div><div class="lane" style="--n:4"><article class="email">
+<header><span class="email-n">Email 1</span><span class="when">1h</span></header>
+<p class="focus">Recover fast.</p>
+<p class="why">Most checkouts are recovered within hours.</p>
+<p class="brief"><span class="lbl">Inside</span>Checkout link with the items, delivery estimate, payment options, help contact</p>
+<footer><span class="cta">Button: Finish checkout</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 2</span><span class="when">12h</span></header>
+<p class="focus">Remove friction.</p>
+<p class="why">Answer the questions that stop people at payment.</p>
+<p class="brief"><span class="lbl">Inside</span>Shipping times and costs, payment options, size guide, customer service contact</p>
+<footer><span class="cta">Button: Finish checkout</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 3</span><span class="when">Day 1</span></header>
+<p class="focus">Reassure with proof.</p>
+<p class="why">Confirm they made a good choice.</p>
+<p class="brief"><span class="lbl">Inside</span>Reviews of the items, &quot;loved by X customers&quot;, fit confidence</p>
+<footer><span class="cta">Button: Complete purchase</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 4</span><span class="when">Day 2</span></header>
+<p class="focus">Close with a deadline.</p>
+<p class="why">The last chance to complete the order.</p>
+<p class="brief"><span class="lbl">Inside</span>Items still reserved, a 24-hour deadline, a best review</p>
+<footer><span class="offer">First-time buyers only: 10%</span><span class="cta">Button: Complete purchase</span></footer>
+</article></div><div class="gate out"><span class="node-k">Leaves when</span><span>Purchase</span></div></div>
+
+</section><section class="flow s-aba" id="flow-3">
+<div class="flow-head"><div class="flow-titles"><h3>Browse Abandonment Flow</h3>
+<span class="stage-tag">Abandonment</span><span class="badge rebuilt">Existing, rebuilt</span></div></div>
+<p class="strategy"><span class="lbl">Flow goal</span>Bring shoppers back to the product they viewed and move them into the cart. This flow has the highest volume of all, so it relies on relevance, not discounts.</p>
+<dl class="meta">
+<div><dt>Measured on</dt><dd>Revenue per recipient, return-to-site rate</dd></div>
+<div><dt>Emails to build</dt><dd>2 · Emails 1 and 2 are live and stay; emails 3 and 4 are rebuilt</dd></div>
+<div><dt>Live by</dt><dd>Nov 19, 2026</dd></div></dl>
+<div class="track"><div class="gate in"><span class="node-k">Enters</span><span>Known visitors who viewed a product and didn&#x27;t add to cart</span></div><div class="lane" style="--n:4"><article class="email">
+<header><span class="email-n">Email 1</span><span class="when">2h after viewing</span></header>
+<p class="focus">Remind.</p>
+<p class="why">Put the exact product back in front of them.</p>
+<p class="brief"><span class="lbl">Inside</span>The product viewed (image, name, price), review stars, size-guide link</p>
+<footer><span class="cta">Button: See it again</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 2</span><span class="when">Day 1</span></header>
+<p class="focus">Widen the choice.</p>
+<p class="why">The product may not have been quite right.</p>
+<p class="brief"><span class="lbl">Inside</span>Similar styles from the same category, bestseller proof, short fit notes</p>
+<footer><span class="cta">Button: Shop similar styles</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 3</span><span class="when">Day 2</span></header>
+<p class="focus">Prove it.</p>
+<p class="why">Let customers do the convincing.</p>
+<p class="brief"><span class="lbl">Inside</span>Top 3 reviews for the product or category, customer photos, fit by body type</p>
+<footer><span class="cta">Button: Read the reviews</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 4</span><span class="when">Day 4</span></header>
+<p class="focus">Reconnect with the brand.</p>
+<p class="why">A soft last touch for shoppers who are still browsing.</p>
+<p class="brief"><span class="lbl">Inside</span>In-season bestsellers, the family story in one block, Montreal fitting invite</p>
+<footer><span class="cta">Button: Shop bestsellers</span></footer>
+</article></div><div class="gate out"><span class="node-k">Leaves when</span><span>Add to cart (they move to Cart) or purchase</span></div></div>
+
+</section><section class="flow s-ret" id="flow-14">
+<div class="flow-head"><div class="flow-titles"><h3>Winback Flow</h3>
+<span class="stage-tag">Retention</span><span class="badge new">New</span></div></div>
+<p class="strategy"><span class="lbl">Flow goal</span>Reactivate lapsed customers when their season comes back. Swim and loungewear are both bought season to season, so the flow nudges once in the off-season and again when their category is in season. It launches in November so that lapsed seasonal buyers are brought back for BFCM.</p>
+<dl class="meta">
+<div><dt>Measured on</dt><dd>Reactivation rate, revenue per recipient</dd></div>
+<div><dt>Emails to build</dt><dd>4</dd></div>
+<div><dt>Live by</dt><dd>Nov 19, 2026</dd></div></dl>
+<div class="track"><div class="gate in"><span class="node-k">Enters</span><span>Customers with no order in 120 days</span></div><div class="lane" style="--n:4"><article class="email">
+<header><span class="email-n">Email 1</span><span class="when">Day 120 after last order</span></header>
+<p class="focus">Stay present.</p>
+<p class="why">A soft check-in with what&#x27;s new.</p>
+<p class="brief"><span class="lbl">Inside</span>New arrivals in season, matched to their last purchase</p>
+<footer><span class="cta">Button: See what&#x27;s new</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 2</span><span class="when">Day 150</span></header>
+<p class="focus">Prove what they&#x27;re missing.</p>
+
+<p class="brief"><span class="lbl">Inside</span>Bestsellers in season, new reviews, customer photos</p>
+<footer><span class="cta">Button: Shop bestsellers</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 3</span><span class="when">Day 330</span></header>
+<p class="focus">&quot;Your season is back.&quot;</p>
+<p class="why">The moment they&#x27;re most likely to buy again.</p>
+<p class="brief"><span class="lbl">Inside</span>The new collection in the category they bought a year ago</p>
+<footer><span class="cta">Button: Shop the new collection</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 4</span><span class="when">Day 337</span></header>
+<p class="focus">Close.</p>
+<p class="why">A time-limited reason to come back.</p>
+<p class="brief"><span class="lbl">Inside</span>Limited code with a 72h deadline, 3 personal picks</p>
+<footer><span class="offer">15%, 72h, not for VIPs (to be agreed)</span><span class="cta">Button: Use my code</span></footer>
+</article></div><div class="gate out"><span class="node-k">Leaves when</span><span>Purchase</span></div></div>
+
+</section></section><section class="phase p2" id="phase-2" data-phase="2"><div class="phase-head"><span class="ph-num">2</span><div><span class="ph-k">Phase 2 · December 2026 to January 2027</span><h2>Win the winter peak</h2><p>Make sure every new subscriber in the January to March loungewear peak gets a full welcome, and keep the list clean after BFCM. <b>All live by Jan 29, 2027.</b></p></div><span class="ph-count">3 flows · 12 emails to build</span></div><section class="flow s-acq" id="flow-1">
+<div class="flow-head"><div class="flow-titles"><h3>Welcome Flow</h3>
+<span class="stage-tag">Acquisition</span><span class="badge rebuilt">Existing, rebuilt</span></div></div>
+<p class="strategy"><span class="lbl">Flow goal</span>Turn a new subscriber into a first-time customer within 8 days, while the welcome code is still valid. The series introduces the brand, matches them to the right products and removes fit doubt before the code expires.</p>
+<dl class="meta">
+<div><dt>Measured on</dt><dd>First-order conversion within 8 days, revenue per subscriber</dd></div>
+<div><dt>Emails to build</dt><dd>4 · Email 1 is live and stays; emails 2 to 5 are rebuilt</dd></div>
+<div><dt>Live by</dt><dd>Dec 18, 2026</dd></div></dl>
+<div class="track"><div class="gate in"><span class="node-k">Enters</span><span>New email subscribers. Returning subscribers get a shorter &quot;welcome back&quot; version</span></div><div class="lane" style="--n:5"><article class="email">
+<header><span class="email-n">Email 1</span><span class="when">Immediately</span></header>
+<p class="focus">Make the first impression and deliver the promise.</p>
+<p class="why">This email has the highest open rate in the flow, so it carries the code and the bestsellers.</p>
+<p class="brief"><span class="lbl">Inside</span>Welcome code front and centre, 3 bestsellers from what we&#x27;re promoting this season (this changes with each season&#x27;s focus), the brand promise (Montreal family brand, made for real bodies), free shipping threshold</p>
+<footer><span class="offer">Welcome code</span><span class="cta">Button: Shop bestsellers</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 2</span><span class="when">Day 2</span></header>
+<p class="focus">Build trust through the story.</p>
+<p class="why">People buy from brands they feel connected to.</p>
+<p class="brief"><span class="lbl">Inside</span>The family behind Everyday Sunday, how and where the pieces are made, the founders&#x27; photo, code reminder in the footer</p>
+<footer><span class="offer">Code reminder</span><span class="cta">Button: Meet the family</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 3</span><span class="when">Day 4</span></header>
+<p class="focus">Personalise.</p>
+<p class="why">Show products that match what they told us they shop for.</p>
+<p class="brief"><span class="lbl">Inside</span>Dynamic block by &quot;Shopping for&quot; (women, men, both) and style. Swim season: one-piece vs bikini, supportive vs sexy. Loungewear season: sets and matching pieces. Review stars on every product.</p>
+<footer><span class="offer">Code reminder</span><span class="cta">Button: Shop my style</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 4</span><span class="when">Day 6</span></header>
+<p class="focus">Remove the fit doubt, the top barrier for swim and apparel online.</p>
+
+<p class="brief"><span class="lbl">Inside</span>Size guide, fit by body type, support features (swim) or fabric and comfort (loungewear), Montreal fitting invite for Quebec subscribers. Code expires in 48h.</p>
+<footer><span class="offer">Code, 48h left</span><span class="cta">Button: Find my size</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 5</span><span class="when">Day 8</span></header>
+<p class="focus">Convert with urgency.</p>
+<p class="why">The code expires today.</p>
+<p class="brief"><span class="lbl">Inside</span>Last-day reminder, best-reviewed styles, one customer quote</p>
+<footer><span class="offer">Code, last day</span><span class="cta">Button: Use my code</span></footer>
+</article></div><div class="gate out"><span class="node-k">Leaves when</span><span>First purchase</span></div></div>
+
+</section><section class="flow s-aba" id="flow-6">
+<div class="flow-head"><div class="flow-titles"><h3>Site Abandonment Flow</h3>
+<span class="stage-tag">Abandonment</span><span class="badge new">New</span></div></div>
+<p class="strategy"><span class="lbl">Flow goal</span>Re-engage known visitors who left without looking at a product, and guide them to a starting point. Intent is low, so the flow inspires rather than pushes.</p>
+<dl class="meta">
+<div><dt>Measured on</dt><dd>Click rate, return-to-site rate</dd></div>
+<div><dt>Emails to build</dt><dd>4</dd></div>
+<div><dt>Live by</dt><dd>Jan 29, 2027</dd></div></dl>
+<div class="track"><div class="gate in"><span class="node-k">Enters</span><span>Known visitors active on site with no product viewed</span></div><div class="lane" style="--n:4"><article class="email">
+<header><span class="email-n">Email 1</span><span class="when">4h after the visit</span></header>
+<p class="focus">Give a starting point.</p>
+
+<p class="brief"><span class="lbl">Inside</span>4 in-season bestsellers, &quot;not sure where to start?&quot; guide by style</p>
+<footer><span class="cta">Button: Shop bestsellers</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 2</span><span class="when">Day 2</span></header>
+<p class="focus">Show what&#x27;s new.</p>
+<p class="why">New products give a reason to come back.</p>
+<p class="brief"><span class="lbl">Inside</span>New arrivals in season, the latest collection story</p>
+<footer><span class="cta">Button: See what&#x27;s new</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 3</span><span class="when">Day 4</span></header>
+<p class="focus">Prove it.</p>
+
+<p class="brief"><span class="lbl">Inside</span>Most-reviewed products, customer photos, fit by body type</p>
+<footer><span class="cta">Button: Read the reviews</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 4</span><span class="when">Day 7</span></header>
+<p class="focus">Connect with the brand.</p>
+
+<p class="brief"><span class="lbl">Inside</span>The family story, the Montreal stores, book a fitting</p>
+<footer><span class="cta">Button: Discover Everyday Sunday</span></footer>
+</article></div><div class="gate out"><span class="node-k">Leaves when</span><span>Product viewed (they move to Browse) or purchase</span></div></div>
+
+</section><section class="flow s-list" id="flow-19">
+<div class="flow-head"><div class="flow-titles"><h3>Sunset Flow</h3>
+<span class="stage-tag">List health</span><span class="badge new">New</span></div></div>
+<p class="strategy"><span class="lbl">Flow goal</span>Win back subscribers who have stopped engaging, and remove those who don&#x27;t respond. Inbox providers reward senders whose subscribers engage, so a clean list means every other email in this playbook reaches the inbox.</p>
+<dl class="meta">
+<div><dt>Measured on</dt><dd>Re-engagement rate, bounce rate under 0.5%, spam rate under 0.05%</dd></div>
+<div><dt>Emails to build</dt><dd>4</dd></div>
+<div><dt>Live by</dt><dd>Jan 29, 2027</dd></div></dl>
+<div class="track"><div class="gate in"><span class="node-k">Enters</span><span>Subscribers with no email click in 120 days and no order in 180 days (VIPs excluded)</span></div><div class="lane" style="--n:4"><article class="email">
+<header><span class="email-n">Email 1</span><span class="when">Day 0</span></header>
+<p class="focus">Re-spark.</p>
+<p class="why">Show what they&#x27;ve missed.</p>
+<p class="brief"><span class="lbl">Inside</span>&quot;We&#x27;ve missed you&quot;: what&#x27;s new since their last visit, the in-season bestseller</p>
+<footer><span class="cta">Button: See what&#x27;s new</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 2</span><span class="when">Day 4</span></header>
+<p class="focus">Give control.</p>
+<p class="why">Let them choose how they hear from us.</p>
+<p class="brief"><span class="lbl">Inside</span>Preferences: fewer emails, sales only, one season only, or unsubscribe</p>
+<footer><span class="cta">Button: Update my preferences</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 3</span><span class="when">Day 8</span></header>
+<p class="focus">Give a reason to stay.</p>
+
+<p class="brief"><span class="lbl">Inside</span>The best of the season, a one-time comeback offer</p>
+<footer><span class="offer">One-time 10%</span><span class="cta">Button: Come back</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 4</span><span class="when">Day 12</span></header>
+<p class="focus">Clear choice.</p>
+
+<p class="brief"><span class="lbl">Inside</span>&quot;We&#x27;re saying goodbye unless…&quot; with a single button to stay subscribed</p>
+<footer><span class="cta">Button: Keep me subscribed</span></footer>
+</article></div><div class="gate out"><span class="node-k">Leaves when</span><span>Click or purchase</span></div></div>
+
+</section></section><section class="phase p3" id="phase-3" data-phase="3"><div class="phase-head"><span class="ph-num">3</span><div><span class="ph-k">Phase 3 · February to April 2027</span><h2>Build the post-purchase journey</h2><p>Turn first orders into second orders, and catch demand for sold-out sizes before the swim season. <b>All live by Apr 30, 2027.</b></p></div><span class="ph-count">4 flows · 16 emails to build</span></div><section class="flow s-post" id="flow-7">
+<div class="flow-head"><div class="flow-titles"><h3>Post-Purchase Flow (online orders)</h3>
+<span class="stage-tag">Post-purchase</span><span class="badge rebuilt">Existing, rebuilt</span></div></div>
+<p class="strategy"><span class="lbl">Flow goal</span>Make the first order feel great between checkout and delivery, and plant the next purchase. This is when customers are most engaged, so it&#x27;s the best window to build loyalty.</p>
+<dl class="meta">
+<div><dt>Measured on</dt><dd>Engagement rate, repeat purchase rate, unsubscribe rate under 0.5%</dd></div>
+<div><dt>Emails to build</dt><dd>4</dd></div>
+<div><dt>Live by</dt><dd>Feb 26, 2027</dd></div></dl>
+<div class="track"><div class="gate in"><span class="node-k">Enters</span><span>Online buyers, split into first-time and repeat</span></div><div class="lane" style="--n:4"><article class="email">
+<header><span class="email-n">Email 1</span><span class="when">30 min after order</span></header>
+<p class="focus">Thank and reassure.</p>
+<p class="why">Confirm they made a good choice.</p>
+<p class="brief"><span class="lbl">Inside</span>Personal thank-you from the family, what happens next (dispatch and delivery timeline), order summary link</p>
+<footer><span class="cta">Button: Track my order</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 2</span><span class="when">Day 2</span></header>
+<p class="focus">Build the relationship.</p>
+<p class="why">First-time buyers meet the brand, repeat buyers are recognised.</p>
+<p class="brief"><span class="lbl">Inside</span>First-time: the family story, how the pieces are made. Repeat: &quot;welcome back&quot; and what&#x27;s new since their last order.</p>
+<footer><span class="cta">Button: Meet the family</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 3</span><span class="when">Day 4</span></header>
+<p class="focus">Complete the look.</p>
+<p class="why">Cross-sell while the purchase is fresh.</p>
+<p class="brief"><span class="lbl">Inside</span>Swim buyers: matching cover-ups and accessories. Loungewear buyers: the matching piece or set.</p>
+<footer><span class="offer">Existing cover-up offer (swim buyers without a cover-up)</span><span class="cta">Button: Complete my look</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 4</span><span class="when">Day 6</span></header>
+<p class="focus">Invite into the community.</p>
+<p class="why">Grow the relationship beyond email.</p>
+<p class="brief"><span class="lbl">Inside</span>Follow on Instagram, VIP programme preview</p>
+<footer><span class="cta">Button: Join the community</span></footer>
+</article></div><div class="gate out"><span class="node-k">Leaves when</span><span>Hands over to the Delivery Fit-Check Flow once the parcel arrives</span></div></div>
+
+</section><section class="flow s-post" id="flow-9">
+<div class="flow-head"><div class="flow-titles"><h3>Delivery Fit-Check Flow</h3>
+<span class="stage-tag">Post-purchase</span><span class="badge new">New</span></div></div>
+<p class="strategy"><span class="lbl">Flow goal</span>Make sure the product fits and is loved, then turn that satisfaction into a review and user content. It starts when the parcel is delivered, not when the order is placed, so every message arrives at the right moment.</p>
+<dl class="meta">
+<div><dt>Measured on</dt><dd>Review rate, click rate</dd></div>
+<div><dt>Emails to build</dt><dd>4</dd></div>
+<div><dt>Live by</dt><dd>Mar 26, 2027</dd></div></dl>
+<div class="track"><div class="gate in"><span class="node-k">Enters</span><span>Online buyers whose order is delivered (fallback: fulfilled + 5 days)</span></div><div class="lane" style="--n:4"><article class="email">
+<header><span class="email-n">Email 1</span><span class="when">Delivery + 2 days</span></header>
+<p class="focus">Fit confidence.</p>
+<p class="why">Help them love it from the first wear.</p>
+<p class="brief"><span class="lbl">Inside</span>&quot;How does it fit?&quot;, how the style should feel, size guide, customer service contact</p>
+<footer><span class="cta">Button: See fit tips</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 2</span><span class="when">Delivery + 5 days</span></header>
+<p class="focus">Care and styling.</p>
+<p class="why">Add value without asking for anything.</p>
+<p class="brief"><span class="lbl">Inside</span>Care instructions for the product type, 3 ways to style it, matching pieces</p>
+<footer><span class="cta">Button: Style it 3 ways</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 3</span><span class="when">Delivery + 10 days</span></header>
+<p class="focus">Earn the review now they&#x27;ve worn it.</p>
+
+<p class="brief"><span class="lbl">Inside</span>Star rating in the email, 2-question survey (&quot;swim, loungewear or both?&quot; plus satisfaction)</p>
+<footer><span class="cta">Button: Rate my purchase</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 4</span><span class="when">Delivery + 16 days</span></header>
+<p class="focus">Turn fans into content.</p>
+
+<p class="brief"><span class="lbl">Inside</span>&quot;Share your look&quot;: tag on Instagram for a chance to be featured, top customer photos</p>
+<footer><span class="cta">Button: Share my look</span></footer>
+</article></div><div class="gate out"><span class="node-k">Leaves when</span><span>Hands over to the Cross-Sell or Repurchase Flow</span></div></div>
+
+</section><section class="flow s-ret" id="flow-11">
+<div class="flow-head"><div class="flow-titles"><h3>Repurchase Flow</h3>
+<span class="stage-tag">Retention</span><span class="badge new">New</span></div></div>
+<p class="strategy"><span class="lbl">Flow goal</span>Win the second order within 90 days of the first. Recommendations build on what they bought, and an incentive appears only at the end, if needed.</p>
+<dl class="meta">
+<div><dt>Measured on</dt><dd>90-day repeat purchase rate</dd></div>
+<div><dt>Emails to build</dt><dd>4</dd></div>
+<div><dt>Live by</dt><dd>Mar 26, 2027</dd></div></dl>
+<div class="track"><div class="gate in"><span class="node-k">Enters</span><span>First-time buyers</span></div><div class="lane" style="--n:4"><article class="email">
+<header><span class="email-n">Email 1</span><span class="when">Order + 50 days</span></header>
+<p class="focus">Complete the set.</p>
+<p class="why">The most natural next purchase.</p>
+<p class="brief"><span class="lbl">Inside</span>Matching pieces for what they bought: top with bottom, the other half of a set, other colours of the same style</p>
+<footer><span class="cta">Button: Complete my set</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 2</span><span class="when">+ 60 days</span></header>
+<p class="focus">Show what others buy next.</p>
+
+<p class="brief"><span class="lbl">Inside</span>&quot;Customers who bought this also loved&quot;: the most common second purchases, in season</p>
+<footer><span class="cta">Button: Shop the favourites</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 3</span><span class="when">+ 75 days</span></header>
+<p class="focus">Personal picks.</p>
+<p class="why">Show we know their taste.</p>
+<p class="brief"><span class="lbl">Inside</span>Picks from their style and &quot;Shopping for&quot; tags, new arrivals in season</p>
+<footer><span class="cta">Button: Shop my picks</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 4</span><span class="when">+ 90 days</span></header>
+<p class="focus">Close the loop.</p>
+<p class="why">A final, gentle incentive.</p>
+<p class="brief"><span class="lbl">Inside</span>&quot;A little thank-you for being part of the family&quot;, 3 personal picks</p>
+<footer><span class="offer">Light incentive (to be agreed)</span><span class="cta">Button: Use my thank-you</span></footer>
+</article></div><div class="gate out"><span class="node-k">Leaves when</span><span>Second order (they move to OHW Flow)</span></div></div>
+
+</section><section class="flow s-alert" id="flow-15">
+<div class="flow-head"><div class="flow-titles"><h3>Back in Stock Flow</h3>
+<span class="stage-tag">Product alerts</span><span class="badge new">New</span></div></div>
+<p class="strategy"><span class="lbl">Flow goal</span>Convert the demand that sold-out sizes create. These shoppers already chose the product, so the flow makes it easy to buy before it sells out again.</p>
+<dl class="meta">
+<div><dt>Measured on</dt><dd>Notify-to-order conversion</dd></div>
+<div><dt>Emails to build</dt><dd>4</dd></div>
+<div><dt>Live by</dt><dd>Apr 30, 2027</dd></div></dl>
+<div class="track"><div class="gate in"><span class="node-k">Enters</span><span>Shoppers who asked to be notified for a size or colour</span></div><div class="lane" style="--n:4"><article class="email">
+<header><span class="email-n">Email 1</span><span class="when">Within 1h of restock</span></header>
+<p class="focus">Alert.</p>
+<p class="why">Be first to tell them.</p>
+<p class="brief"><span class="lbl">Inside</span>&quot;It&#x27;s back in your size&quot;: product, size and colour they asked for, price</p>
+<footer><span class="cta">Button: Buy now</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 2</span><span class="when">Day 1</span></header>
+<p class="focus">Reassure.</p>
+<p class="why">Confirm it&#x27;s worth it.</p>
+<p class="brief"><span class="lbl">Inside</span>Reviews of the product, fit notes, size guide</p>
+<footer><span class="cta">Button: Get mine</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 3</span><span class="when">Day 2</span></header>
+<p class="focus">Urgency.</p>
+<p class="why">Stock is limited.</p>
+<p class="brief"><span class="lbl">Inside</span>&quot;Selling fast again&quot;: remaining sizes</p>
+<footer><span class="cta">Button: Get mine before it&#x27;s gone</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 4</span><span class="when">Day 5</span></header>
+<p class="focus">Alternative.</p>
+<p class="why">If it&#x27;s gone or wasn&#x27;t right.</p>
+<p class="brief"><span class="lbl">Inside</span>Same style in other colours, similar styles in their size, another notify-me option</p>
+<footer><span class="cta">Button: Shop similar styles</span></footer>
+</article></div><div class="gate out"><span class="node-k">Leaves when</span><span>Purchase of that product</span></div></div>
+
+</section></section><section class="phase p4" id="phase-4" data-phase="4"><div class="phase-head"><span class="ph-num">4</span><div><span class="ph-k">Phase 4 · May to August 2027</span><h2>Swim season and loyalty</h2><p>Introduce a second category, bring store shoppers online, and reward the customers who keep coming back. <b>All live by Aug 27, 2027.</b></p></div><span class="ph-count">5 flows · 32 emails to build</span></div><section class="flow s-post" id="flow-8">
+<div class="flow-head"><div class="flow-titles"><h3>Post-Purchase Flow (store orders)</h3>
+<span class="stage-tag">Post-purchase</span><span class="badge rebuilt">Existing, rebuilt</span></div></div>
+<p class="strategy"><span class="lbl">Flow goal</span>Turn store buyers into online customers and public advocates. They&#x27;ve already handled the product, so the job is the review and the second channel.</p>
+<dl class="meta">
+<div><dt>Measured on</dt><dd>Google reviews, online orders from store buyers</dd></div>
+<div><dt>Emails to build</dt><dd>4</dd></div>
+<div><dt>Live by</dt><dd>May 28, 2027</dd></div></dl>
+<div class="track"><div class="gate in"><span class="node-k">Enters</span><span>In-store buyers who agreed to email at the till</span></div><div class="lane" style="--n:4"><article class="email">
+<header><span class="email-n">Email 1</span><span class="when">Day 0</span></header>
+<p class="focus">Thank and care.</p>
+
+<p class="brief"><span class="lbl">Inside</span>Thanks for shopping at the store, care instructions for the product type, the staff team</p>
+<footer><span class="cta">Button: See care tips</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 2</span><span class="when">Day 3</span></header>
+<p class="focus">Earn the review.</p>
+
+<p class="brief"><span class="lbl">Inside</span>One-tap Google review for the store</p>
+<footer><span class="cta">Button: Leave a review</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 3</span><span class="when">Day 7</span></header>
+<p class="focus">Bring them online.</p>
+
+<p class="brief"><span class="lbl">Inside</span>Full size and colour range online, free shipping threshold</p>
+<footer><span class="cta">Button: Shop online</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 4</span><span class="when">Day 14</span></header>
+<p class="focus">Next purchase.</p>
+
+<p class="brief"><span class="lbl">Inside</span>New arrivals in season, matching pieces for what they bought, book a fitting</p>
+<footer><span class="cta">Button: See what&#x27;s new</span></footer>
+</article></div><div class="gate out"><span class="node-k">Leaves when</span><span>Online purchase</span></div></div>
+
+</section><section class="flow s-ret" id="flow-10">
+<div class="flow-head"><div class="flow-titles"><h3>Cross-Sell Flow (category and household)</h3>
+<span class="stage-tag">Retention</span><span class="badge new">New</span></div></div>
+<p class="strategy"><span class="lbl">Flow goal</span>Turn single-category customers into multi-category customers by offering the category that&#x27;s in season. Swim buyers get loungewear, loungewear buyers get swim, and women&#x27;s-swim households get men&#x27;s swim.</p>
+<dl class="meta">
+<div><dt>Measured on</dt><dd>Share of single-category customers who buy a second category within 60 days</dd></div>
+<div><dt>Emails to build</dt><dd>12</dd></div>
+<div><dt>Live by</dt><dd>May 28, 2027</dd></div></dl>
+<div class="track"><div class="track-head"><span class="track-tag">Branch A</span><span class="track-title">swim → loungewear</span><span class="track-cond">October–March</span></div><div class="gate in"><span class="node-k">Enters</span><span>Swim-only customers, 21 days after their order</span></div><div class="lane" style="--n:4"><article class="email">
+<header><span class="email-n">Email 1</span><span class="when">Order + 21 days</span></header>
+<p class="focus">Introduce loungewear.</p>
+<p class="why">Same brand, new category.</p>
+<p class="brief"><span class="lbl">Inside</span>&quot;From the makers of your swimsuit&quot;: loungewear bestsellers, the fabric and comfort story</p>
+<footer><span class="cta">Button: Discover loungewear</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 2</span><span class="when">+ 28 days</span></header>
+<p class="focus">Prove the comfort.</p>
+
+<p class="brief"><span class="lbl">Inside</span>Reviews on softness, fit and sizing, customer photos</p>
+<footer><span class="cta">Button: Read the reviews</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 3</span><span class="when">+ 35 days</span></header>
+<p class="focus">Build the look.</p>
+
+<p class="brief"><span class="lbl">Inside</span>Matching sets and layering pieces. Gift angle in November–December.</p>
+<footer><span class="cta">Button: Shop the sets</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 4</span><span class="when">+ 42 days</span></header>
+<p class="focus">Personal picks.</p>
+
+<p class="brief"><span class="lbl">Inside</span>Loungewear picks based on their style and size, Montreal stores</p>
+<footer><span class="cta">Button: Shop my picks</span></footer>
+</article></div><div class="gate out"><span class="node-k">Leaves when</span><span>Purchase in the new category</span></div></div><div class="track"><div class="track-head"><span class="track-tag">Branch B</span><span class="track-title">loungewear → swim</span><span class="track-cond">April–September</span></div><div class="gate in"><span class="node-k">Enters</span><span>Loungewear-only customers, 21 days after their order</span></div><div class="lane" style="--n:4"><article class="email">
+<header><span class="email-n">Email 1</span><span class="when">Order + 21 days</span></header>
+<p class="focus">Introduce swim.</p>
+
+<p class="brief"><span class="lbl">Inside</span>Swim bestsellers led by The Wrap, the &quot;made for real bodies&quot; story</p>
+<footer><span class="cta">Button: Discover swim</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 2</span><span class="when">+ 28 days</span></header>
+<p class="focus">Remove fit doubt.</p>
+
+<p class="brief"><span class="lbl">Inside</span>Fit by body type, support features, size guide</p>
+<footer><span class="cta">Button: Find my size</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 3</span><span class="when">+ 35 days</span></header>
+<p class="focus">Prove it.</p>
+
+<p class="brief"><span class="lbl">Inside</span>Swim reviews and customer photos</p>
+<footer><span class="cta">Button: Shop swim</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 4</span><span class="when">+ 42 days</span></header>
+<p class="focus">Personal service.</p>
+
+<p class="brief"><span class="lbl">Inside</span>Book a fitting in Montreal, personal swim picks</p>
+<footer><span class="cta">Button: Book a fitting</span></footer>
+</article></div><div class="gate out"><span class="node-k">Leaves when</span><span>Purchase in the new category</span></div></div><div class="track"><div class="track-head"><span class="track-tag">Branch C</span><span class="track-title">men&#x27;s swim for the household</span><span class="track-cond">April–September; &quot;Shopping for&quot; = Both or Men, women&#x27;s-only buyers</span></div><div class="gate in"><span class="node-k">Enters</span><span>Women&#x27;s swim buyers whose household also shops men&#x27;s, 21 days after their order</span></div><div class="lane" style="--n:4"><article class="email">
+<header><span class="email-n">Email 1</span><span class="when">Order + 21 days</span></header>
+<p class="focus">Introduce men&#x27;s.</p>
+
+<p class="brief"><span class="lbl">Inside</span>Men&#x27;s swim bestsellers, the same quality and fit promise</p>
+<footer><span class="cta">Button: Shop men&#x27;s</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 2</span><span class="when">+ 28 days</span></header>
+<p class="focus">Remove fit doubt.</p>
+
+<p class="brief"><span class="lbl">Inside</span>Men&#x27;s size guide, fit notes, fabric</p>
+<footer><span class="cta">Button: Find his size</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 3</span><span class="when">+ 35 days</span></header>
+<p class="focus">Matching looks.</p>
+
+<p class="brief"><span class="lbl">Inside</span>His-and-hers matching swim sets for summer</p>
+<footer><span class="cta">Button: Shop matching sets</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 4</span><span class="when">+ 42 days</span></header>
+<p class="focus">Prove it.</p>
+
+<p class="brief"><span class="lbl">Inside</span>Men&#x27;s reviews and customer photos</p>
+<footer><span class="cta">Button: Shop men&#x27;s</span></footer>
+</article></div><div class="gate out"><span class="node-k">Leaves when</span><span>Purchase in the new category</span></div></div>
+<p class="note">Only the branch that is in season runs. Customers with no branch in season skip the flow and are reached by the seasonal campaign instead. Branch B goes live first, on May 28, 2027. Branch A follows on Sep 24, 2027, before the loungewear season, and Branch C on Oct 29, 2027.</p>
+</section><section class="flow s-acq" id="flow-2">
+<div class="flow-head"><div class="flow-titles"><h3>In-Store Welcome Flow (LCR / Old Port)</h3>
+<span class="stage-tag">Acquisition</span><span class="badge new">New</span></div></div>
+<p class="strategy"><span class="lbl">Flow goal</span>Turn in-store sign-ups into online customers and brand advocates. They&#x27;ve already bought in person, so the flow thanks them, earns a review and shows them what the store couldn&#x27;t.</p>
+<dl class="meta">
+<div><dt>Measured on</dt><dd>Online orders from store sign-ups, Google reviews</dd></div>
+<div><dt>Emails to build</dt><dd>4</dd></div>
+<div><dt>Live by</dt><dd>Jun 25, 2027</dd></div></dl>
+<div class="track"><div class="gate in"><span class="node-k">Enters</span><span>Profiles who sign up in store</span></div><div class="lane" style="--n:4"><article class="email">
+<header><span class="email-n">Email 1</span><span class="when">Day 0</span></header>
+<p class="focus">Thank and care.</p>
+<p class="why">Extend the in-store experience.</p>
+<p class="brief"><span class="lbl">Inside</span>Thank-you from the store team, care instructions for what they bought, staff-picked styles</p>
+<footer><span class="cta">Button: See staff picks</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 2</span><span class="when">Day 2</span></header>
+<p class="focus">Earn the review while the visit is fresh.</p>
+
+<p class="brief"><span class="lbl">Inside</span>One-tap Google review request for the store, why reviews help a family business</p>
+<footer><span class="cta">Button: Leave a review</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 3</span><span class="when">Day 6</span></header>
+<p class="focus">Bring them online.</p>
+<p class="why">Show what the store didn&#x27;t have.</p>
+<p class="brief"><span class="lbl">Inside</span>Full size and colour range online, free shipping threshold, easy online ordering</p>
+<footer><span class="cta">Button: Shop online</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 4</span><span class="when">Day 14</span></header>
+<p class="focus">Set up the next visit.</p>
+<p class="why">Keep the relationship going.</p>
+<p class="brief"><span class="lbl">Inside</span>New arrivals in season, book a fitting, store hours and addresses</p>
+<footer><span class="cta">Button: Book a fitting</span></footer>
+</article></div><div class="gate out"><span class="node-k">Leaves when</span><span>Online purchase</span></div></div>
+
+</section><section class="flow s-ret" id="flow-12">
+<div class="flow-head"><div class="flow-titles"><h3>OHW Flow (One Hit Wonders)</h3>
+<span class="stage-tag">Retention</span><span class="badge new">New</span></div></div>
+<p class="strategy"><span class="lbl">Flow goal</span>Turn a returning customer into a regular by winning the third order within 90 days. A customer who has bought twice is ready for a relationship, so the flow recognises their loyalty and starts showing them the path to VIP.</p>
+<dl class="meta">
+<div><dt>Measured on</dt><dd>90-day third-order rate</dd></div>
+<div><dt>Emails to build</dt><dd>4</dd></div>
+<div><dt>Live by</dt><dd>Jul 30, 2027</dd></div></dl>
+<div class="track"><div class="gate in"><span class="node-k">Enters</span><span>Customers who have just placed their second order</span></div><div class="lane" style="--n:4"><article class="email">
+<header><span class="email-n">Email 1</span><span class="when">Order + 50 days</span></header>
+<p class="focus">Recognise the return.</p>
+
+<p class="brief"><span class="lbl">Inside</span>&quot;Thank you for coming back&quot;: what&#x27;s new since their last order, in season</p>
+<footer><span class="cta">Button: See what&#x27;s new</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 2</span><span class="when">+ 60 days</span></header>
+<p class="focus">Personalise from two orders.</p>
+<p class="why">We now know their taste.</p>
+<p class="brief"><span class="lbl">Inside</span>Picks based on the pattern of both orders (category, style, size)</p>
+<footer><span class="cta">Button: Shop my picks</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 3</span><span class="when">+ 75 days</span></header>
+<p class="focus">Belong.</p>
+<p class="why">Show the community of regulars.</p>
+<p class="brief"><span class="lbl">Inside</span>Most-loved by repeat customers, customer photos, the family story behind the newest pieces</p>
+<footer><span class="cta">Button: Shop the favourites</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 4</span><span class="when">+ 90 days</span></header>
+<p class="focus">Show the path to VIP.</p>
+<p class="why">Give a reason to order now.</p>
+<p class="brief"><span class="lbl">Inside</span>What VIPs get, &quot;two orders away from VIP&quot;, 3 personal picks</p>
+<footer><span class="offer">Free shipping on the next order (to be agreed)</span><span class="cta">Button: Shop now</span></footer>
+</article></div><div class="gate out"><span class="node-k">Leaves when</span><span>Third order (they move to VIP part A)</span></div></div>
+
+</section><section class="flow s-ret" id="flow-13">
+<div class="flow-head"><div class="flow-titles"><h3>VIP Flow</h3>
+<span class="stage-tag">Retention</span><span class="badge new">New</span></div></div>
+<p class="strategy"><span class="lbl">Flow goal</span>Grow and keep the most valuable customers. Part A gets customers over the VIP line with their next purchase. Part B makes VIPs feel recognised so they stay loyal. VIPs get access and attention, not discounts.</p>
+<dl class="meta">
+<div><dt>Measured on</dt><dd>Customers reaching VIP, VIP repeat rate, revenue per VIP</dd></div>
+<div><dt>Emails to build</dt><dd>8</dd></div>
+<div><dt>Live by</dt><dd>Aug 27, 2027</dd></div></dl>
+<div class="track"><div class="track-head"><span class="track-tag">Part A</span><span class="track-title">one purchase away from VIP</span><span class="track-cond">starts after the 3rd order; exit when they reach VIP</span></div><div class="gate in"><span class="node-k">Enters</span><span>Starts after the 3rd order</span></div><div class="lane" style="--n:4"><article class="email">
+<header><span class="email-n">Email 1</span><span class="when">Order + 50 days</span></header>
+<p class="focus">Prompt the next purchase.</p>
+<p class="why">&quot;You&#x27;re one purchase away from becoming a VIP.&quot;</p>
+<p class="brief"><span class="lbl">Inside</span>Their progress to VIP, what VIP unlocks (perk, early access to every drop and sale), 3 personal picks</p>
+<footer><span class="cta">Button: Unlock VIP</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 2</span><span class="when">+ 60 days</span></header>
+<p class="focus">Make the next order easy.</p>
+
+<p class="brief"><span class="lbl">Inside</span>Personal picks based on their 3 orders, new arrivals in their size</p>
+<footer><span class="cta">Button: Shop my picks</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 3</span><span class="when">+ 75 days</span></header>
+<p class="focus">Show what they&#x27;re missing.</p>
+
+<p class="brief"><span class="lbl">Inside</span>A taste of VIP: the next drop preview VIPs will see first</p>
+<footer><span class="cta">Button: Get VIP access</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 4</span><span class="when">+ 90 days</span></header>
+<p class="focus">Final nudge.</p>
+
+<p class="brief"><span class="lbl">Inside</span>&quot;Your VIP status is one order away&quot;, most-loved pieces in season</p>
+<footer><span class="cta">Button: Become a VIP</span></footer>
+</article></div><div class="gate out"><span class="node-k">Leaves when</span><span>Reaches VIP (moves to Part B)</span></div></div><div class="track"><div class="track-head"><span class="track-tag">Part B</span><span class="track-title">VIP welcome</span><span class="track-cond">starts on reaching VIP</span></div><div class="gate in"><span class="node-k">Enters</span><span>Reaches VIP status (4+ orders or CAD 600+, to be agreed)</span></div><div class="lane" style="--n:4"><article class="email">
+<header><span class="email-n">Email 1</span><span class="when">On becoming a VIP</span></header>
+<p class="focus">Recognise.</p>
+<p class="why">Make the status feel real.</p>
+<p class="brief"><span class="lbl">Inside</span>Welcome to the inner circle, what VIPs get, a thank-you from the family</p>
+<footer><span class="offer">VIP perk (to be agreed)</span><span class="cta">Button: Explore my perks</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 2</span><span class="when">Day 7</span></header>
+<p class="focus">Personal service.</p>
+
+<p class="brief"><span class="lbl">Inside</span>Personal picks from their purchase history, new arrivals in their size</p>
+<footer><span class="cta">Button: Shop my picks</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 3</span><span class="when">Day 21</span></header>
+<p class="focus">Insider access.</p>
+
+<p class="brief"><span class="lbl">Inside</span>Behind the scenes: the next collection in progress, a sneak peek before anyone else</p>
+<footer><span class="cta">Button: Get a sneak peek</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 4</span><span class="when">Day 45</span></header>
+<p class="focus">Involve them.</p>
+<p class="why">Loyalty grows when customers have a say.</p>
+<p class="brief"><span class="lbl">Inside</span>&quot;Help us design what&#x27;s next&quot; survey, VIP perk reminder</p>
+<footer><span class="offer">VIP perk reminder</span><span class="cta">Button: Share my opinion</span></footer>
+</article></div><div class="gate out"><span class="node-k">Leaves when</span><span>Stays a VIP: VIP-only campaigns continue</span></div></div>
+<p class="note">VIPs also get every new drop and sale 48 hours early through VIP-only campaigns.</p>
+</section></section><section class="phase p5" id="phase-5" data-phase="5"><div class="phase-head"><span class="ph-num">5</span><div><span class="ph-k">Phase 5 · September to November 2027</span><h2>Ready for winter and BFCM 2027</h2><p>Finish the programme with the flows that matter for the next loungewear season and Black Friday 2027. <b>All live by Nov 18, 2027.</b></p></div><span class="ph-count">2 flows · 8 emails to build</span></div><section class="flow s-alert" id="flow-16">
+<div class="flow-head"><div class="flow-titles"><h3>Price Drop Flow</h3>
+<span class="stage-tag">Product alerts</span><span class="badge new">New</span></div></div>
+<p class="strategy"><span class="lbl">Flow goal</span>Turn markdowns into personal alerts for people who already wanted the product, so sale revenue comes from interest rather than a blast to everyone.</p>
+<dl class="meta">
+<div><dt>Measured on</dt><dd>Revenue per recipient</dd></div>
+<div><dt>Emails to build</dt><dd>4</dd></div>
+<div><dt>Live by</dt><dd>Sep 24, 2027</dd></div></dl>
+<div class="track"><div class="gate in"><span class="node-k">Enters</span><span>Shoppers who viewed a product in the last 30 days that has dropped 10% or more</span></div><div class="lane" style="--n:4"><article class="email">
+<header><span class="email-n">Email 1</span><span class="when">Within 2h of the drop</span></header>
+<p class="focus">Alert.</p>
+
+<p class="brief"><span class="lbl">Inside</span>The product they viewed, old price struck through, new price</p>
+<footer><span class="offer">The markdown</span><span class="cta">Button: Shop the new price</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 2</span><span class="when">Day 1</span></header>
+<p class="focus">Reassure.</p>
+
+<p class="brief"><span class="lbl">Inside</span>Reviews, fit notes, sizes available</p>
+<footer><span class="offer">The markdown</span><span class="cta">Button: Find my size</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 3</span><span class="when">Day 2</span></header>
+<p class="focus">Urgency.</p>
+
+<p class="brief"><span class="lbl">Inside</span>Sizes running low, sale end date if known</p>
+<footer><span class="offer">The markdown</span><span class="cta">Button: Get it before it&#x27;s gone</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 4</span><span class="when">Day 4</span></header>
+<p class="focus">Widen the choice.</p>
+
+<p class="brief"><span class="lbl">Inside</span>Other reduced styles in their category and size</p>
+<footer><span class="offer">The markdown</span><span class="cta">Button: Shop the sale</span></footer>
+</article></div><div class="gate out"><span class="node-k">Leaves when</span><span>Purchase of that product</span></div></div>
+
+</section><section class="flow s-mom" id="flow-18">
+<div class="flow-head"><div class="flow-titles"><h3>Birthday Flow</h3>
+<span class="stage-tag">Moments</span><span class="badge new">New</span></div></div>
+<p class="strategy"><span class="lbl">Flow goal</span>Celebrate the customer and turn the birthday into a purchase with a gift that feels personal, not promotional.</p>
+<dl class="meta">
+<div><dt>Measured on</dt><dd>Redemption rate, revenue per recipient</dd></div>
+<div><dt>Emails to build</dt><dd>4</dd></div>
+<div><dt>Live by</dt><dd>Nov 18, 2027</dd></div></dl>
+<div class="track"><div class="gate in"><span class="node-k">Enters</span><span>Profiles with a birthday on file</span></div><div class="lane" style="--n:4"><article class="email">
+<header><span class="email-n">Email 1</span><span class="when">7 days before</span></header>
+<p class="focus">Gift.</p>
+<p class="why">Give them time to plan a treat.</p>
+<p class="brief"><span class="lbl">Inside</span>Birthday gift from the family, valid 14 days, in-season picks</p>
+<footer><span class="offer">Birthday gift (to be agreed)</span><span class="cta">Button: Claim my gift</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 2</span><span class="when">On the birthday</span></header>
+<p class="focus">Celebrate.</p>
+
+<p class="brief"><span class="lbl">Inside</span>Happy birthday from the family, gift reminder</p>
+<footer><span class="offer">Birthday gift</span><span class="cta">Button: Treat myself</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 3</span><span class="when">5 days after</span></header>
+<p class="focus">Personal picks.</p>
+
+<p class="brief"><span class="lbl">Inside</span>3 picks from their style, gift reminder</p>
+<footer><span class="offer">Birthday gift</span><span class="cta">Button: Shop my picks</span></footer>
+</article><span class="arrow" aria-hidden="true"></span><article class="email">
+<header><span class="email-n">Email 4</span><span class="when">2 days before the gift expires</span></header>
+<p class="focus">Last call.</p>
+
+<p class="brief"><span class="lbl">Inside</span>The gift expires soon</p>
+<footer><span class="offer">Birthday gift</span><span class="cta">Button: Use my gift</span></footer>
+</article></div><div class="gate out"><span class="node-k">Leaves when</span><span>Gift redeemed</span></div></div>
+
+</section></section></div>
+
+  <section class="eta" id="etas" aria-labelledby="eta-title">
+<div class="sec-title"><h2 id="eta-title">When each flow goes live</h2><p>Paced to the monthly scope: 6 campaigns and 6 flow emails a month</p></div>
+<div class="eta-chart"><svg viewBox="0 0 1100 764" role="img" aria-label="Go-live date for every flow, October 2026 to November 2027" class="eta-svg"><rect x="449" y="62" width="146" height="692" fill="var(--sand)"/><text x="522" y="80" text-anchor="middle" class="t-q">Loungewear peak</text><rect x="694" y="62" width="149" height="692" fill="var(--sand)"/><text x="768" y="80" text-anchor="middle" class="t-q">Swim peak</text><line x1="392" x2="392" y1="56" y2="754" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="4 4"/><line x1="982" x2="982" y1="56" y2="754" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="4 4"/><text x="396" y="16" class="t-b">Black Friday</text><text x="978" y="16" text-anchor="end" class="t-b">Black Friday 2027</text><line x1="300" x2="300" y1="56" y2="754" stroke="var(--line)"/><text x="303" y="50" class="t-m">Oct</text><text x="303" y="34" class="t-y">2026</text><line x1="350" x2="350" y1="56" y2="754" stroke="var(--line)"/><text x="353" y="50" class="t-m">Nov</text><line x1="399" x2="399" y1="56" y2="754" stroke="var(--line)"/><text x="402" y="50" class="t-m">Dec</text><line x1="449" x2="449" y1="56" y2="754" stroke="var(--line)"/><text x="452" y="50" class="t-m">Jan</text><text x="452" y="34" class="t-y">2027</text><line x1="499" x2="499" y1="56" y2="754" stroke="var(--line)"/><text x="502" y="50" class="t-m">Feb</text><line x1="545" x2="545" y1="56" y2="754" stroke="var(--line)"/><text x="548" y="50" class="t-m">Mar</text><line x1="595" x2="595" y1="56" y2="754" stroke="var(--line)"/><text x="598" y="50" class="t-m">Apr</text><line x1="643" x2="643" y1="56" y2="754" stroke="var(--line)"/><text x="646" y="50" class="t-m">May</text><line x1="694" x2="694" y1="56" y2="754" stroke="var(--line)"/><text x="697" y="50" class="t-m">Jun</text><line x1="742" x2="742" y1="56" y2="754" stroke="var(--line)"/><text x="745" y="50" class="t-m">Jul</text><line x1="792" x2="792" y1="56" y2="754" stroke="var(--line)"/><text x="795" y="50" class="t-m">Aug</text><line x1="843" x2="843" y1="56" y2="754" stroke="var(--line)"/><text x="846" y="50" class="t-m">Sep</text><line x1="891" x2="891" y1="56" y2="754" stroke="var(--line)"/><text x="894" y="50" class="t-m">Oct</text><line x1="941" x2="941" y1="56" y2="754" stroke="var(--line)"/><text x="944" y="50" class="t-m">Nov</text><line x1="990" x2="990" y1="56" y2="754" stroke="var(--line)"/><text x="993" y="50" class="t-m">Dec</text><text x="16" y="112" class="t-ph p1">Phase 1 · Recover lost revenue before BFCM</text><line x1="16" x2="990" y1="118" y2="118" stroke="var(--line)"/><g class="p1"><text x="28" y="143" class="t-f">Cart Abandonment Flow</text><line x1="300" x2="347" y1="139" y2="139" stroke="var(--line)" stroke-dasharray="2 3"/><path d="M347.0 132l7 7l-7 7l-7 -7z" fill="var(--ph)"/><text x="359" y="143" text-anchor="start" class="t-d">Oct 30</text></g><g class="p1"><text x="28" y="169" class="t-f">Checkout Abandonment Flow</text><line x1="300" x2="347" y1="165" y2="165" stroke="var(--line)" stroke-dasharray="2 3"/><path d="M347.0 158l7 7l-7 7l-7 -7z" fill="var(--ph)"/><text x="359" y="169" text-anchor="start" class="t-d">Oct 30</text></g><g class="p1"><text x="28" y="195" class="t-f">Browse Abandonment Flow</text><line x1="300" x2="379" y1="191" y2="191" stroke="var(--line)" stroke-dasharray="2 3"/><path d="M379.4 184l7 7l-7 7l-7 -7z" fill="var(--ph)"/><text x="391" y="195" text-anchor="start" class="t-d">Nov 19</text></g><g class="p1"><text x="28" y="221" class="t-f">Winback Flow</text><line x1="300" x2="379" y1="217" y2="217" stroke="var(--line)" stroke-dasharray="2 3"/><path d="M379.4 210l7 7l-7 7l-7 -7z" fill="var(--ph)"/><text x="391" y="221" text-anchor="start" class="t-d">Nov 19</text></g><text x="16" y="254" class="t-ph p2">Phase 2 · Win the winter peak</text><line x1="16" x2="990" y1="260" y2="260" stroke="var(--line)"/><g class="p2"><text x="28" y="285" class="t-f">Welcome Flow</text><line x1="300" x2="426" y1="281" y2="281" stroke="var(--line)" stroke-dasharray="2 3"/><path d="M426.3 274l7 7l-7 7l-7 -7z" fill="var(--ph)"/><text x="438" y="285" text-anchor="start" class="t-d">Dec 18</text></g><g class="p2"><text x="28" y="311" class="t-f">Site Abandonment Flow</text><line x1="300" x2="494" y1="307" y2="307" stroke="var(--line)" stroke-dasharray="2 3"/><path d="M494.4 300l7 7l-7 7l-7 -7z" fill="var(--ph)"/><text x="506" y="311" text-anchor="start" class="t-d">Jan 29, 2027</text></g><g class="p2"><text x="28" y="337" class="t-f">Sunset Flow</text><line x1="300" x2="494" y1="333" y2="333" stroke="var(--line)" stroke-dasharray="2 3"/><path d="M494.4 326l7 7l-7 7l-7 -7z" fill="var(--ph)"/><text x="506" y="337" text-anchor="start" class="t-d">Jan 29, 2027</text></g><text x="16" y="370" class="t-ph p3">Phase 3 · Build the post-purchase journey</text><line x1="16" x2="990" y1="376" y2="376" stroke="var(--line)"/><g class="p3"><text x="28" y="401" class="t-f">Post-Purchase Flow (online)</text><line x1="300" x2="540" y1="397" y2="397" stroke="var(--line)" stroke-dasharray="2 3"/><path d="M539.7 390l7 7l-7 7l-7 -7z" fill="var(--ph)"/><text x="552" y="401" text-anchor="start" class="t-d">Feb 26, 2027</text></g><g class="p3"><text x="28" y="427" class="t-f">Delivery Fit-Check Flow</text><line x1="300" x2="585" y1="423" y2="423" stroke="var(--line)" stroke-dasharray="2 3"/><path d="M585.1 416l7 7l-7 7l-7 -7z" fill="var(--ph)"/><text x="597" y="427" text-anchor="start" class="t-d">Mar 26, 2027</text></g><g class="p3"><text x="28" y="453" class="t-f">Repurchase Flow</text><line x1="300" x2="585" y1="449" y2="449" stroke="var(--line)" stroke-dasharray="2 3"/><path d="M585.1 442l7 7l-7 7l-7 -7z" fill="var(--ph)"/><text x="597" y="453" text-anchor="start" class="t-d">Mar 26, 2027</text></g><g class="p3"><text x="28" y="479" class="t-f">Back in Stock Flow</text><line x1="300" x2="642" y1="475" y2="475" stroke="var(--line)" stroke-dasharray="2 3"/><path d="M641.8 468l7 7l-7 7l-7 -7z" fill="var(--ph)"/><text x="654" y="479" text-anchor="start" class="t-d">Apr 30, 2027</text></g><text x="16" y="512" class="t-ph p4">Phase 4 · Swim season and loyalty</text><line x1="16" x2="990" y1="518" y2="518" stroke="var(--line)"/><g class="p4"><text x="28" y="543" class="t-f">Post-Purchase Flow (store)</text><line x1="300" x2="687" y1="539" y2="539" stroke="var(--line)" stroke-dasharray="2 3"/><path d="M687.1 532l7 7l-7 7l-7 -7z" fill="var(--ph)"/><text x="699" y="543" text-anchor="start" class="t-d">May 28, 2027</text></g><g class="p4"><text x="28" y="569" class="t-f">Cross-Sell Flow</text><line x1="300" x2="687" y1="565" y2="565" stroke="var(--line)" stroke-dasharray="2 3"/><path d="M687.1 558l7 7l-7 7l-7 -7z" fill="var(--ph)"/><text x="699" y="569" text-anchor="start" class="t-d">May 28, 2027</text></g><g class="p4"><text x="28" y="595" class="t-f">In-Store Welcome Flow</text><line x1="300" x2="732" y1="591" y2="591" stroke="var(--line)" stroke-dasharray="2 3"/><path d="M732.5 584l7 7l-7 7l-7 -7z" fill="var(--ph)"/><text x="744" y="595" text-anchor="start" class="t-d">Jun 25, 2027</text></g><g class="p4"><text x="28" y="621" class="t-f">OHW Flow</text><line x1="300" x2="789" y1="617" y2="617" stroke="var(--line)" stroke-dasharray="2 3"/><path d="M789.2 610l7 7l-7 7l-7 -7z" fill="var(--ph)"/><text x="801" y="621" text-anchor="start" class="t-d">Jul 30, 2027</text></g><g class="p4"><text x="28" y="647" class="t-f">VIP Flow</text><line x1="300" x2="835" y1="643" y2="643" stroke="var(--line)" stroke-dasharray="2 3"/><path d="M834.5 636l7 7l-7 7l-7 -7z" fill="var(--ph)"/><text x="847" y="647" text-anchor="start" class="t-d">Aug 27, 2027</text></g><text x="16" y="680" class="t-ph p5">Phase 5 · Ready for winter and BFCM 2027</text><line x1="16" x2="990" y1="686" y2="686" stroke="var(--line)"/><g class="p5"><text x="28" y="711" class="t-f">Price Drop Flow</text><line x1="300" x2="880" y1="707" y2="707" stroke="var(--line)" stroke-dasharray="2 3"/><path d="M879.9 700l7 7l-7 7l-7 -7z" fill="var(--ph)"/><text x="892" y="711" text-anchor="start" class="t-d">Sep 24, 2027</text></g><g class="p5"><text x="28" y="737" class="t-f">Birthday Flow</text><line x1="300" x2="969" y1="733" y2="733" stroke="var(--line)" stroke-dasharray="2 3"/><path d="M968.9 726l7 7l-7 7l-7 -7z" fill="var(--ph)"/><text x="957" y="737" text-anchor="end" class="t-d">Nov 18, 2027</text></g></svg></div>
+<h3 class="sub">Monthly build plan</h3>
+<div class="mgrid"><div class="mcard"><span class="m-n">Oct 2026</span><span class="m-cap"><b>6</b> / 6 flow emails</span><ul><li><span>Cart Abandonment Flow</span><b>3</b></li><li><span>Checkout Abandonment Flow</span><b>3</b></li></ul></div><div class="mcard"><span class="m-n">Nov 2026</span><span class="m-cap"><b>6</b> / 6 flow emails</span><ul><li><span>Winback Flow</span><b>4</b></li><li><span>Browse Abandonment Flow</span><b>2</b></li></ul></div><div class="mcard"><span class="m-n">Dec 2026</span><span class="m-cap"><b>6</b> / 6 flow emails</span><ul><li><span>Welcome Flow</span><b>4</b></li><li><span>Site Abandonment Flow</span><b>2</b></li></ul></div><div class="mcard"><span class="m-n">Jan 2027</span><span class="m-cap"><b>6</b> / 6 flow emails</span><ul><li><span>Site Abandonment Flow</span><b>2</b></li><li><span>Sunset Flow</span><b>4</b></li></ul></div><div class="mcard"><span class="m-n">Feb 2027</span><span class="m-cap"><b>6</b> / 6 flow emails</span><ul><li><span>Post-Purchase Flow (online)</span><b>4</b></li><li><span>Delivery Fit-Check Flow</span><b>2</b></li></ul></div><div class="mcard"><span class="m-n">Mar 2027</span><span class="m-cap"><b>6</b> / 6 flow emails</span><ul><li><span>Delivery Fit-Check Flow</span><b>2</b></li><li><span>Repurchase Flow</span><b>4</b></li></ul></div><div class="mcard"><span class="m-n">Apr 2027</span><span class="m-cap"><b>6</b> / 6 flow emails</span><ul><li><span>Back in Stock Flow</span><b>4</b></li><li><span>Cross-Sell · Branch B</span><b>2</b></li></ul></div><div class="mcard"><span class="m-n">May 2027</span><span class="m-cap"><b>6</b> / 6 flow emails</span><ul><li><span>Cross-Sell · Branch B</span><b>2</b></li><li><span>Post-Purchase Flow (store)</span><b>4</b></li></ul></div><div class="mcard"><span class="m-n">Jun 2027</span><span class="m-cap"><b>6</b> / 6 flow emails</span><ul><li><span>In-Store Welcome Flow</span><b>4</b></li><li><span>OHW Flow</span><b>2</b></li></ul></div><div class="mcard"><span class="m-n">Jul 2027</span><span class="m-cap"><b>6</b> / 6 flow emails</span><ul><li><span>OHW Flow</span><b>2</b></li><li><span>VIP Flow</span><b>4</b></li></ul></div><div class="mcard"><span class="m-n">Aug 2027</span><span class="m-cap"><b>6</b> / 6 flow emails</span><ul><li><span>VIP Flow</span><b>4</b></li><li><span>Cross-Sell · Branch A</span><b>2</b></li></ul></div><div class="mcard"><span class="m-n">Sep 2027</span><span class="m-cap"><b>6</b> / 6 flow emails</span><ul><li><span>Cross-Sell · Branch A</span><b>2</b></li><li><span>Price Drop Flow</span><b>4</b></li></ul></div><div class="mcard"><span class="m-n">Oct 2027</span><span class="m-cap"><b>6</b> / 6 flow emails</span><ul><li><span>Cross-Sell · Branch C</span><b>4</b></li><li><span>Birthday Flow</span><b>2</b></li></ul></div><div class="mcard"><span class="m-n">Nov 2027</span><span class="m-cap"><b>2</b> / 6 flow emails</span><ul><li><span>Birthday Flow</span><b>2</b></li></ul></div></div>
+<div class="table-wrap"><table class="eta-table"><thead><tr><th>Phase</th><th>Flow</th><th>Stage</th><th>Type</th><th class="num">Emails to build</th><th class="num">Live by</th></tr></thead><tbody><tr class="p1"><td><span class="dot"></span>Phase 1</td><td><a href="#flow-4" data-goto="1">Cart Abandonment Flow</a></td><td>Abandonment</td><td>Existing, rebuilt</td><td class="num">3</td><td class="num"><b>Oct 30, 2026</b></td></tr><tr class="p1"><td><span class="dot"></span>Phase 1</td><td><a href="#flow-5" data-goto="1">Checkout Abandonment Flow</a></td><td>Abandonment</td><td>Existing, rebuilt</td><td class="num">3</td><td class="num"><b>Oct 30, 2026</b></td></tr><tr class="p1"><td><span class="dot"></span>Phase 1</td><td><a href="#flow-3" data-goto="1">Browse Abandonment Flow</a></td><td>Abandonment</td><td>Existing, rebuilt</td><td class="num">2</td><td class="num"><b>Nov 19, 2026</b></td></tr><tr class="p1"><td><span class="dot"></span>Phase 1</td><td><a href="#flow-14" data-goto="1">Winback Flow</a></td><td>Retention</td><td>New</td><td class="num">4</td><td class="num"><b>Nov 19, 2026</b></td></tr><tr class="p2"><td><span class="dot"></span>Phase 2</td><td><a href="#flow-1" data-goto="2">Welcome Flow</a></td><td>Acquisition</td><td>Existing, rebuilt</td><td class="num">4</td><td class="num"><b>Dec 18, 2026</b></td></tr><tr class="p2"><td><span class="dot"></span>Phase 2</td><td><a href="#flow-6" data-goto="2">Site Abandonment Flow</a></td><td>Abandonment</td><td>New</td><td class="num">4</td><td class="num"><b>Jan 29, 2027</b></td></tr><tr class="p2"><td><span class="dot"></span>Phase 2</td><td><a href="#flow-19" data-goto="2">Sunset Flow</a></td><td>List health</td><td>New</td><td class="num">4</td><td class="num"><b>Jan 29, 2027</b></td></tr><tr class="p3"><td><span class="dot"></span>Phase 3</td><td><a href="#flow-7" data-goto="3">Post-Purchase Flow (online orders)</a></td><td>Post-purchase</td><td>Existing, rebuilt</td><td class="num">4</td><td class="num"><b>Feb 26, 2027</b></td></tr><tr class="p3"><td><span class="dot"></span>Phase 3</td><td><a href="#flow-9" data-goto="3">Delivery Fit-Check Flow</a></td><td>Post-purchase</td><td>New</td><td class="num">4</td><td class="num"><b>Mar 26, 2027</b></td></tr><tr class="p3"><td><span class="dot"></span>Phase 3</td><td><a href="#flow-11" data-goto="3">Repurchase Flow</a></td><td>Retention</td><td>New</td><td class="num">4</td><td class="num"><b>Mar 26, 2027</b></td></tr><tr class="p3"><td><span class="dot"></span>Phase 3</td><td><a href="#flow-15" data-goto="3">Back in Stock Flow</a></td><td>Product alerts</td><td>New</td><td class="num">4</td><td class="num"><b>Apr 30, 2027</b></td></tr><tr class="p4"><td><span class="dot"></span>Phase 4</td><td><a href="#flow-8" data-goto="4">Post-Purchase Flow (store orders)</a></td><td>Post-purchase</td><td>Existing, rebuilt</td><td class="num">4</td><td class="num"><b>May 28, 2027</b></td></tr><tr class="p4"><td><span class="dot"></span>Phase 4</td><td><a href="#flow-10" data-goto="4">Cross-Sell Flow (category and household)</a></td><td>Retention</td><td>New</td><td class="num">12</td><td class="num"><b>May 28, 2027</b></td></tr><tr class="p4"><td><span class="dot"></span>Phase 4</td><td><a href="#flow-2" data-goto="4">In-Store Welcome Flow (LCR / Old Port)</a></td><td>Acquisition</td><td>New</td><td class="num">4</td><td class="num"><b>Jun 25, 2027</b></td></tr><tr class="p4"><td><span class="dot"></span>Phase 4</td><td><a href="#flow-12" data-goto="4">OHW Flow (One Hit Wonders)</a></td><td>Retention</td><td>New</td><td class="num">4</td><td class="num"><b>Jul 30, 2027</b></td></tr><tr class="p4"><td><span class="dot"></span>Phase 4</td><td><a href="#flow-13" data-goto="4">VIP Flow</a></td><td>Retention</td><td>New</td><td class="num">8</td><td class="num"><b>Aug 27, 2027</b></td></tr><tr class="p5"><td><span class="dot"></span>Phase 5</td><td><a href="#flow-16" data-goto="5">Price Drop Flow</a></td><td>Product alerts</td><td>New</td><td class="num">4</td><td class="num"><b>Sep 24, 2027</b></td></tr><tr class="p5"><td><span class="dot"></span>Phase 5</td><td><a href="#flow-18" data-goto="5">Birthday Flow</a></td><td>Moments</td><td>New</td><td class="num">4</td><td class="num"><b>Nov 18, 2027</b></td></tr></tbody></table></div>
+</section>
+
+  <section class="rules" aria-label="Rules across all flows">
+    <div><h3>Exit on success</h3><p>The moment someone does what the flow is for, usually a purchase, they leave it. Abandonment flows are ranked Checkout, Cart, Browse, Site, and a shopper is only ever in the highest one.</p></div>
+    <div><h3>Discounts come last</h3><p>Offers appear only in the final email of high-intent flows and only where the offer ladder allows. Everything else sells on product, fit and proof.</p></div>
+    <div><h3>Campaigns, not flows</h3><p>New-collection launches and the December and April season switches run as planned campaigns. The Cross-Sell Flow handles category introductions customer by customer in between.</p></div>
+  </section>
+
+  <footer class="foot"><span>Everyday Sunday · Flow map prepared by Postman Agency</span><span>Offers marked "to be agreed" need sign-off from the Everyday Sunday team</span></footer>
+</div>
+<script>
+(function(){
+  var btns=[].slice.call(document.querySelectorAll('.ph-btn')),secs=[].slice.call(document.querySelectorAll('#phases .phase'));
+  function show(ph,scroll){
+    btns.forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.phase===ph));});
+    secs.forEach(function(s){s.hidden=!(ph==='all'||s.dataset.phase===ph);});
+    if(scroll){var tgt=document.getElementById(ph==='all'?'phases':'phase-'+ph); if(tgt) tgt.scrollIntoView();}
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){show(b.dataset.phase,true);});});
+  [].slice.call(document.querySelectorAll('[data-goto]')).forEach(function(a){a.addEventListener('click',function(){var cur=document.querySelector('.ph-btn[aria-pressed="true"]');if(cur&&cur.dataset.phase!=='all'&&cur.dataset.phase!==a.dataset.goto)show('all',false);});});
+  var m=(location.hash||'').match(/^#phase-([1-9])$/); if(m) show(m[1],true);
+})();
+</script>
+
+</body></html>
